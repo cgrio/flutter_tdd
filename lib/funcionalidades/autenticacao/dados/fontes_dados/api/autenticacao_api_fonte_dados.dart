@@ -69,7 +69,8 @@ class AutenticacaoApiFonteDadosImplementacao
   @override
   Future<AutenticacaoModelo>? acaoObterDoSimuladorAutenticacao(
       String clienteToken, String clienteSenha) async {
-    return AutenticacaoModelo.fromJson(json.decode(
-        SimuladorApi.autenticar(login: clienteToken, senha: clienteSenha)));
+    final resposta =
+        await SimuladorApi.autenticar(login: clienteToken, senha: clienteSenha);
+    return AutenticacaoModelo.fromJson(json.decode(resposta));
   }
 }
