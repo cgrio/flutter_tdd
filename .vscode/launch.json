@@ -1,0 +1,31 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dart",
+            "type": "dart",
+            "request": "launch",
+            "program": "bin/main.dart"
+        },
+        {
+            "name": "Dart: Run all Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        },
+        {
+            "name": "tdd_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "tdd_flutter (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        }
+    ]
+}
