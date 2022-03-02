@@ -7,13 +7,15 @@ import 'package:tdd_flutter/nucleo/plataforma/informacao_rede.dart';
 import 'package:tdd_flutter/nucleo/tratamento_erros/excecoes.dart';
 import 'package:tdd_flutter/nucleo/tratamento_erros/falhas.dart';
 
-class AutenticacaoRepositorioDados implements AutenticaoRepositorio {
+class AutenticacaoRepositorioDados implements AutenticacaoRepositorio {
   final AutenticacaoApiFonteDados apiFonteDados;
   final AutenticacaoLocalFonteDados localFonteDados;
   final InformacaoRede informacaoRede;
 
   AutenticacaoRepositorioDados(
-      this.apiFonteDados, this.localFonteDados, this.informacaoRede);
+      {required this.apiFonteDados,
+      required this.localFonteDados,
+      required this.informacaoRede});
 
   @override
   Future<Either<Falha, AutenticacaoEntidade>>? autenticarToken(
@@ -27,15 +29,17 @@ class AutenticacaoRepositorioDados implements AutenticaoRepositorio {
           await localFonteDados.acaoObterAutenticacaoCache();
       if (autenticacaoModelo != null) {
         // se a data de validade é maior que hoje devolvo o usuário do cache
-        if (autenticacaoModelo != null) {
-          // if(DateTime.now().isBefore(DateTime.tryParse(
-          //         autenticacaoModelo.dataExpiracaoToken.toString()) )){}
 
-          return Right(autenticacaoModelo);
-        }
+        // if(DateTime.now().isBefore(DateTime.tryParse(
+        //         autenticacaoModelo.dataExpiracaoToken.toString()) )){}
+        return Right(autenticacaoModelo);
       } else {
-        //TODO: Criar refresh de token
-        throw UnimplementedError();
+        final autenticacaoModeloApi = await apiFonteDados.acaoLogarAutenticacao(
+            clienteToken, clienteSenha);
+
+        if (autenticacaoModeloApi != null) {
+          return Right(autenticacaoModeloApi);
+        }
       }
       return Left(ErroFalha());
     } on CacheExcecao {
@@ -49,19 +53,30 @@ class AutenticacaoRepositorioDados implements AutenticaoRepositorio {
 
   @override
   Future<Either<Falha, AutenticacaoEntidade>>? logar(
-      String login, String senha) {
-    //se existe conexao de rede
-
-    //verifico se existe usuário no cache
-
-    //se a data do token é maior que hoje
+      String pLogin, String pSenha) async {
+    try {
+      if (await informacaoRede.estaConectado) {
+        final autenticacaoModeloApi =
+            await apiFonteDados.acaoLogarAutenticacao(pLogin, pSenha);
+        if (autenticacaoModeloApi != null) {
+          localFonteDados.acaoGuardarAutenticacaoCache(autenticacaoModeloApi);
+          return Right(autenticacaoModeloApi);
+        }
+        return Left(ErroFalha());
+      } else {
+        return Left(ErroFalha());
+      }
+    } on CacheExcecao {
+      return Left(CacheFalha());
+    }
   }
 
   @override
-  Future<Either<Falha, String>>? solicitarEnvioSenha(String login) async {
+  Future<Either<Falha, String>>? solicitarEnvioSenha(
+      String cpf, DateTime dataNascimento) async {
     try {
       if (await informacaoRede.estaConectado) {
-        apiFonteDados.acaoSolicitarEnvioSenhaAutenticacao(login);
+        apiFonteDados.acaoSolicitarEnvioSenhaAutenticacao(cpf, dataNascimento);
         return const Right("Solicitacao Enviada");
       } else {
         return const Right("Verifique sua conexão e tente novamente.");

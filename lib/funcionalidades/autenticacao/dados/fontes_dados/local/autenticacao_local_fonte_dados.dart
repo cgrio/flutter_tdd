@@ -16,7 +16,7 @@ abstract class AutenticacaoLocalFonteDados {
 class AutenticacaoLocalFonteDadosImplementacao
     implements AutenticacaoLocalFonteDados {
   final SharedPreferences sharedPreferences;
-  AutenticacaoLocalFonteDadosImplementacao(this.sharedPreferences);
+  AutenticacaoLocalFonteDadosImplementacao({required this.sharedPreferences});
 
   @override
   Future<bool>? acaoGuardarAutenticacaoCache(

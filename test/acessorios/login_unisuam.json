@@ -1,0 +1,39 @@
+{
+    "status": 200,
+    "errors": [],
+    "data": {
+        "aluno_cpf": "07026767720",
+        "aluno_nome": "Alessandro Correia da Silva",
+        "detalhes": [
+            {
+                "aluno_id": "159795",
+                "aluno_id_saga": "195059",
+                "aluno_matricula": "21103093",
+                "nivel_de_ensino": "GRADUACAO",
+                "nivel_de_ensino_label": "Graduação (21103093)",
+                "curso_nome": "Psicologia",
+                "exAluno": false,
+                "status": 4,
+                "alunoCalouro": false,
+                "primeiroAcesso": false
+            },
+            {
+                "aluno_id": "145856",
+                "aluno_id_saga": "19134",
+                "aluno_matricula": "P2010092",
+                "nivel_de_ensino": "POSGRADUACAO",
+                "nivel_de_ensino_label": "Pós-Graduação (P2010092)",
+                "curso_nome": "Ciência de Dados com Ênfase em Business Intelligence",
+                "exAluno": true,
+                "status": 5,
+                "alunoCalouro": false,
+                "primeiroAcesso": false
+            }
+        ]
+    },
+    "authentication": {
+        "authentication": "62c9c5e9943380e8cffae89548d180f0",
+        "authentication-login": "451905",
+        "authentication-key": "9de4c3dd8663c5e52ec3511fc3e00617"
+    }
+}

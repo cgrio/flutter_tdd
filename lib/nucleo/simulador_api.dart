@@ -1,10 +1,20 @@
-import 'package:tdd_flutter/funcionalidades/autenticacao/dados/modelos/autenticacao_modelo.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 abstract class SimuladorApi {
   static Future<String> autenticar(
       {required String login, required String senha}) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return '{"login": "alessandro.correia@unisuam.edu.br","senha": "focoDeterminacao","appSenha": "sfsfssfsdfsdsdfsdfsfsdfsfsf","appToken": "safsdfsffdsfsfsdfsfsffsfsfsfsdff","clientSenha": "sdfsdafsdfsdfsdfsdfsdf","clienteToken": "sdfsdfsdfsdfsdfdsafdf","dataExpiracaoToken": "2023-12-31 00:00:00.000"}';
+    return Future.delayed(const Duration(seconds: 2), () async {
+      //print(await _obterArquivoJson('/auth/login'));
+      return _obterArquivoJson('/auth/login');
     });
+  }
+
+  static Future<String> _obterArquivoJson(rota) async {
+    switch (rota) {
+      case '/auth/login':
+        return await rootBundle
+            .loadString('assets/arquivos_json/auth_login.json');
+    }
+    return 'aa';
   }
 }

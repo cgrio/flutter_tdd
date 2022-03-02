@@ -6,7 +6,7 @@ import 'package:tdd_flutter/nucleo/tratamento_erros/falhas.dart';
 
 class AutenticarTokenAutenticacaoCasoUso
     extends CasoUso<AutenticacaoEntidade, dynamic> {
-  final AutenticaoRepositorio repositorio;
+  final AutenticacaoRepositorio repositorio;
 
   AutenticarTokenAutenticacaoCasoUso(this.repositorio);
 
